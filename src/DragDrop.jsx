@@ -37,11 +37,14 @@ const DragDrop = () => {
 			'Content-Type': 'multipart/form-data'
 		};
 
+		var formData = new FormData();
+		formData.append("file", file);
+		
 		const config = {
 			method: 'post',
 			url: 'https://identity.azbit.com/api/verification/identity-file',
 			headers,
-			data: file,
+			data: formData,
 		};
 
 		return axios(config).then(({data}) => {
@@ -50,8 +53,8 @@ const DragDrop = () => {
 	};
 
 	const onDrop = useCallback((acceptedFiles) => {
-
-		sendFile(acceptedFiles);
+		console.log("onDrop", acceptedFiles);
+		sendFile(acceptedFiles[0]);
 
 		// acceptedFiles.forEach((file) => {
 		// 	const reader = new FileReader()
